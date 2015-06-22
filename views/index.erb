@@ -1,0 +1,23 @@
+<html>
+  <body>
+    <h1>
+      Calculator
+    </h1>
+    <a href="/counting">Go to final countdown</a>
+    <form action="/result" method="post">
+      <p><label>First value: <input name="firstvalue" value="<%= @memory %>"/></label></p>
+      <p><label>Second value: <input name="secondvalue" /></label></p>
+      <input type="submit" name="operation" value="Add"/>
+      <input type="submit" name="operation" value="Subtract"/>
+      <input type="submit" name="operation" value="Multiply"/>
+      <input type="submit" name="operation" value="Divide"/>
+      <p><%= @txt_result %></p>
+      <% if @txt_result %>
+        <input type="submit" name="operation" value="Operate result"/>
+        <input type="submit" name="operation" value="Erase memory"/>
+      <% end %>
+    </form>
+
+
+  </body>
+</html>
