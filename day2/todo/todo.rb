@@ -1,25 +1,31 @@
+require 'rubygems'
+require 'active_record'
 require 'sinatra'
 require 'sinatra/reloader'
 
-require './lib/task.rb'
-
-set :port, 2005
+##### DATABASE
+set :port, 2007
 set :bind, '0.0.0.0'
 
-tasks ||= []
-id = 0
+ActiveRecord::Base.establish_connection(
+  adapter: 'sqlite3',
+  database: 'todo.sqlite'
+)
+#####
 
-get '/' do
-  @tasks = tasks
+##### ROUTES
+get ('/') do
+  @tasks = Task.all
   erb :index
 end
 
-get '/new_task' do
-  erb :new_task
-end
-
-post '/new_task' do
-  id += 1
-  tasks << Task.new(id, params[:task])
+post '/task/add' do
+  task = Task.new(params)
+  task.save
   redirect('/')
+end
+#####
+
+class Task < ActiveRecord::Base
+
 end

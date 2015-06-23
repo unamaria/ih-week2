@@ -3,18 +3,22 @@
     <h1>
       TO-DO list
     </h1>
+    <h2>Add new task</h2>
+    <form action="/task/add" method="post">
+      <p><label>Task: <input name="name"/></label></p>
+      <input type="submit" value="Add task"/>
+    </form>
     <h2>Tasks</h2>
       <ul>
       <% if @tasks.any? %>
         <% @tasks.each do |task| %>
         <p><li>
-          <%= task.content %>
+          <%= task.name %>
         </li></p>
         <% end %>
       </ul>
       <% else %>
         <p>No tasks yet!</p>
       <% end %>
-      <p><a href="/new_task">Add a new task</a></p>
   </body>
 </html>
