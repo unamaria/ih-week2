@@ -32,7 +32,7 @@ post '/result' do
   x = params[:firstvalue].to_i
   y = params[:secondvalue].to_i
 
-  case params[:operation] 
+  case params[:operation] # @txt_result = params[:operation] 
   when "Add"
     result = x + y
     @txt_result = "The sum of #{x} and #{y} is #{result}"

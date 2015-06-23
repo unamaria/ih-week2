@@ -1,0 +1,39 @@
+<html>
+  <body>
+    <h1>
+      IronhackLIST
+    </h1>
+    <h2>Create new student</h2>
+    <form action="/student/add" method="post">
+      <p><label>Name: <input name="name"/></label></p>
+      <p><label>Surname: <input name="surnames" /></label></p>
+      <p><label>Birthday: <input name="birthday" type="date"/></label></p>
+      <p><label>Website: <input name="website" /></label></p>
+      <p><label>Programming experience: <input name="first_programming_experience" type="checkbox" /></label></p>
+      <p><label>Number of dogs: <input name="number_of_dogs" /></label></p>
+      <input type="submit" value="Add student"/>
+    </form>
+    <h2>Directory</h2>
+      <ul>
+        <% if @students.any? %>
+          <% @students.each do |student| %>
+          <li>
+            <h3><%= student.name %> <%= student.surnames %></h3>
+            <p><strong>Birthday: </strong><%= student.birthday%></p>
+            <p><strong>Website: </strong><a href="<%= student.website %>"><%= student.website %></a></p>
+            <p><strong>Programming experience: </strong><%= student.first_programming_experience? ? 'Yes' : 'No' %></p>
+            <p><strong>How many dogs: </strong><%= student.number_of_dogs %></p>
+            <% if student.number_of_dogs < 1 %>
+              <form action="/student/<%= student.id %>/delete" method="post">
+                <p>This student has no dogs!</p>
+                <input type="submit" value="REMOVE!">
+              </form>
+            <% end %>
+          </li>
+          <% end %>
+      </ul>
+        <% else %>
+          <p>No students yet!</p>
+        <% end %>
+  </body>
+</html>

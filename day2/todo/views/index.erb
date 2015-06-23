@@ -1,0 +1,20 @@
+<html>
+  <body>
+    <h1>
+      TO-DO list
+    </h1>
+    <h2>Tasks</h2>
+      <ul>
+      <% if @tasks.any? %>
+        <% @tasks.each do |task| %>
+        <p><li>
+          <%= task.content %>
+        </li></p>
+        <% end %>
+      </ul>
+      <% else %>
+        <p>No tasks yet!</p>
+      <% end %>
+      <p><a href="/new_task">Add a new task</a></p>
+  </body>
+</html>
