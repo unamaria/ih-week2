@@ -19,9 +19,22 @@ get ('/') do
   erb :index
 end
 
-post '/task/add' do
-  task = Task.new(params)
+post ('/task/add') do
+  task = Task.new name: params[:name], done: false, date: DateTime.now
   task.save
+  redirect('/')
+end
+
+post ('/task/:id/check') do |id|
+  task = Task.find(id)
+  task.done = true
+  task.save
+  redirect('/')
+end
+
+post ('/task/:id/delete') do |id|
+  task = Task.find(id)
+  task.destroy
   redirect('/')
 end
 #####

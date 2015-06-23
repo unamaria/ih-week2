@@ -1,4 +1,9 @@
 <html>
+<head>
+  <style type="text/css">
+  .done { text-decoration: line-through; }
+  </style>
+</head>
   <body>
     <h1>
       TO-DO list
@@ -13,8 +18,21 @@
       <% if @tasks.any? %>
         <% @tasks.each do |task| %>
         <p><li>
-          <%= task.name %>
+          <p<% if task.done %> 
+             class="done" 
+            <% end %> >
+            <%= task.name %></p>
         </li></p>
+          <% if task.done %>
+          <form action="/task/<%= task.id %>/delete" method="post">
+            <input type="submit" value="Delete">
+          </form> 
+          <% else %>
+            <form action="/task/<%= task.id %>/check" method="post">
+              <input type="submit" value="Check">
+            </form>  
+            <p><%= task.date.strftime("%A %d %B %Y") %></p>
+          <% end %>
         <% end %>
       </ul>
       <% else %>
