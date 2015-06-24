@@ -40,7 +40,6 @@ end
 #####
 
 class Task < ActiveRecord::Base
-  attr_accessor :sort_tasks
   def urgent?(name)
     name.include?("urgent")
   end
