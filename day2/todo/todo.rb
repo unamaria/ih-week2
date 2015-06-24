@@ -15,7 +15,7 @@ ActiveRecord::Base.establish_connection(
 
 ##### ROUTES
 get ('/') do
-  @tasks = Task.all
+  @tasks = Task.sort_tasks
   erb :index
 end
 
@@ -40,5 +40,21 @@ end
 #####
 
 class Task < ActiveRecord::Base
+  attr_accessor :sort_tasks
+  def urgent?(name)
+    name.include?("urgent")
+  end
+  def self.sort_tasks
+    all_tasks = Task.all
+    done_tasks = Task.where(:done => true )
+    undone_urgent_tasks = all_tasks.select do |task| 
+      task.urgent?(task.name) && task.done == false
+    end
+    other_tasks = all_tasks.reject do |task|
+      task.done == true || task.urgent?(task.name)
+    end
 
+    undone_urgent_tasks.concat(other_tasks).concat(done_tasks)
+  end
 end
+

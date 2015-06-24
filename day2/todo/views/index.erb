@@ -28,10 +28,10 @@
             <input type="submit" value="Delete">
           </form> 
           <% else %>
+            <p><%= task.date.strftime("%A %d %B %Y") %></p>
             <form action="/task/<%= task.id %>/check" method="post">
               <input type="submit" value="Check">
             </form>  
-            <p><%= task.date.strftime("%A %d %B %Y") %></p>
           <% end %>
         <% end %>
       </ul>
