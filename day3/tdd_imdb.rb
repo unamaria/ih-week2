@@ -34,7 +34,7 @@ class SeriesMaster
     return nil if n < 1
     return "Max 250" if n > 250
     top = Imdb::Top250.new.movies.first(n)
-    Hash[top.map{ |serie| [get_title(serie).sub(/[0-9]\.\n\s+/, ''), serie.rating] }]
+    Hash[top.map{ |serie| [get_title(serie).sub(/\d\.\n\s+/, ''), serie.rating] }]
   end
   
   private
