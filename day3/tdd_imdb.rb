@@ -19,7 +19,7 @@ class SeriesMaster
     series_seasons = Hash[series_o.map{ |serie| [get_title(serie), serie.seasons] }]
     series_seasons.each do |serie, seasons|
       series_seasons[serie] = seasons.inject(0) do |episodes, season|
-        episodes + season.episodes.count # not working?
+        episodes + season.episodes.count
       end
     end
     series_seasons.max_by { |serie, episodes| episodes }[0]
