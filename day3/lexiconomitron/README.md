@@ -15,7 +15,7 @@ describe Lexiconomitron do
     end
   end
 end
-``
+```
 
 ## Iteration 2: Shazam
 
