@@ -22,7 +22,7 @@ at Ironhack. During the process of refactoring, use the specs in order to know y
 
 ### Original code
 
-´´´
+```
 class Varys
   # Say the name of the character
   def say_my_name!
@@ -84,4 +84,4 @@ def friday_numbers(arg)
 
    return resp
 end end
-´´´
+```
