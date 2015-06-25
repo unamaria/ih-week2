@@ -18,11 +18,11 @@ class SeriesMaster
     series_o = objectify_series(series_s)
     series_seasons = Hash[series_o.map{ |serie| [get_title(serie), serie.seasons] }]
     series_seasons.each do |serie, seasons|
-      series_seasons[serie] = seasons.inject do |episodes, season|
-        episodes + season.episodes.count # not working
+      series_seasons[serie] = seasons.inject(0) do |episodes, season|
+        episodes + season.episodes.count # not working?
       end
     end
-    series_seasons.max_by { |serie, episodes| episodes }
+    series_seasons.max_by { |serie, episodes| episodes }[0]
   end
 
   def best_from(series_s)
@@ -84,12 +84,11 @@ describe SeriesMaster do
     end
   end
 
-  # describe "#most_episodes_from" do
-  #   pending
-  #   it "should return Breaking Bad" do
-  #     expect(@master.most_episodes_from(%w{ Breaking \Bad Black\ Mirror })).to eq("Breaking Bad")
-  #   end
-  # end
+  describe "#most_episodes_from" do
+    it "should return Breaking Bad" do
+      expect(@master.most_episodes_from(%w{ Breaking \Bad Black\ Mirror })).to eq("Breaking Bad")
+    end
+  end
 
   describe "#best_from" do
     it "should return Breaking Bad" do
