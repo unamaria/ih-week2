@@ -17,7 +17,8 @@
         <% @shouts.each do |shout| %>
         <p><li>
             <p><%= shout.message %></p>
-            <p><%= shout.message %></p>
+               <% user_id = shout.user_id %>
+            <p><%= @users.find(user_id).handle %></p>
         </li></p>
         <% end %>
       </ul>

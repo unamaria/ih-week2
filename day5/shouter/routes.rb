@@ -7,6 +7,7 @@ set :bind, '0.0.0.0'
 
 get ('/') do 
   @shouts = Shout.all
+  @users = User.all
   erb :index
 end
 
