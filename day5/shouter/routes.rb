@@ -31,3 +31,10 @@ post ('/shout/new') do
   Shout.create message: params[:message], likes: 0, created_at: DateTime.now, user_id: id
   redirect ('/')
 end
+
+post ('/:id/like') do |id|
+  shout = Shout.find(id)
+  shout.likes += 1
+  shout.save
+  redirect('/')
+end

@@ -8,7 +8,7 @@
     <% if @current_user %>
     <h2>Hi, <%= @current_user %>!</h2>
     <form action="/logout" method="post">
-      <input type="submit" name="logout" value="Log out"/>
+      <input type="submit" value="Log out"/>
     </form>
     <h2>SHOUT!</h2>
       <form action="/shout/new" method="post">
@@ -31,10 +31,12 @@
         <% @shouts.each do |shout| %>
         <p><li>
             <% user_id = shout.user_id %>
-            <p>
               "<%= shout.message %>" 
               <strong>@<%= @users.find(user_id).handle %></strong>
-            </p>
+               <%= shout.likes %> likes
+              <form action="/<%= shout.id%>/like" method="post">
+                <input type="submit" value="LIKE" />
+              </form>
         </li></p>
         <% end %>
       </ul>
