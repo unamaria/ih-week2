@@ -46,13 +46,24 @@ get ('/best') do
   erb :best
 end
 
-get ('/:handle') do |handle|
+get ('/shouts/:handle') do |handle|
   @users = User.all
   @current_user = session[:handle]
   @handle = handle
-  id = (User.find_by handle: handle).id
+  id = (User.find_by_handle handle).id
   @shouts_by_handle = Shout.where(user_id: id)
   erb :shouts_by_handle
 end
+
+get ('/signup') do
+  erb :signup
+end
+
+post ('/signup') do
+  User.create name: params[:name], handle: params[:handle], password: params[:password]
+  redirect('/')
+end
+
+
 
 

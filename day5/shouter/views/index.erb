@@ -24,6 +24,7 @@
         <input name="password" />
         <p><input type="submit" value="Log in"/></p>
       </form>
+      <p>Not a shouter? <a href="/signup">Sign up!</a></p>
     <% end %>
     <h2>People are shouting</h2>
       <a href="/best">Check the best shouts</a>
@@ -33,7 +34,7 @@
         <p><li>
             <% user_id = shout.user_id %>
               "<%= shout.message %>" 
-              <strong><a href="/<%= @users.find(user_id).handle %>">@<%= @users.find(user_id).handle %></a></strong>
+              <strong><a href="/shouts/<%= @users.find(user_id).handle %>">@<%= @users.find(user_id).handle %></a></strong>
                <%= shout.likes %> likes
               <form action="/<%= shout.id%>/like" method="post">
                 <input type="submit" value="LIKE" />
