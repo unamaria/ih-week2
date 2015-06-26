@@ -16,9 +16,8 @@
       <% if @shouts.any? %>
         <% @shouts.each do |shout| %>
         <p><li>
-          <p>
-            <%= shout.user_id.handle %></p>
-            <%= shout.message %></p>
+            <p><%= shout.message %></p>
+            <p><%= shout.message %></p>
         </li></p>
         <% end %>
       </ul>

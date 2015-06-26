@@ -11,5 +11,7 @@ get ('/') do
 end
 
 post ('/shout/new') do
+  id = User.where("handle == '#{params[:handle]}'").first.id
+  Shout.create message: params[:message], likes: 0, created_at: DateTime.now, user_id: id
   redirect ('/')
 end
