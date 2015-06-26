@@ -38,3 +38,10 @@ post ('/:id/like') do |id|
   shout.save
   redirect('/')
 end
+
+get ('/best') do
+  @users = User.all
+  @current_user = session[:handle]
+  @best_shouts = Shout.all.sort_by { |shout| shout.likes }.reverse
+  erb :best
+end

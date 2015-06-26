@@ -10,11 +10,7 @@
     <form action="/logout" method="post">
       <input type="submit" value="Log out"/>
     </form>
-    <h2>SHOUT!</h2>
-      <form action="/shout/new" method="post">
-        <p><label>Message (Max 200 characters)</label></p><textarea name="message" rows="10" cols="50"></textarea>
-        <p><input type="submit" value="Shout!"/></p>
-      </form>
+    
     <% else %>
       <h2>Log in</h2>
       <form action="/login" method="post">
@@ -25,19 +21,16 @@
         <p><input type="submit" value="Log in"/></p>
       </form>
     <% end %>
-    <h2>People are shouting</h2>
-      <a href="/best">Check the best shouts</a>
+    <h2>Best shouts</h2>
+      <a href="/">Back to main page</a>
       <ul>
-      <% if @shouts.any? %>
-        <% @shouts.each do |shout| %>
+      <% if @best_shouts.any? %>
+        <% @best_shouts.each do |shout| %>
         <p><li>
             <% user_id = shout.user_id %>
               "<%= shout.message %>" 
               <strong>@<%= @users.find(user_id).handle %></strong>
                <%= shout.likes %> likes
-              <form action="/<%= shout.id%>/like" method="post">
-                <input type="submit" value="LIKE" />
-              </form>
         </li></p>
         <% end %>
       </ul>
