@@ -8,11 +8,13 @@
       <h2>Top handles</h2>
       <p><a href="/">Back to main page</a></p>
       <% if @users_likes.any? %>
+        <ol>
         <% @users_likes.each do |handle, likes| %>
           <p><li>
             <strong><a href="/shouts/<%= handle %>">@<%= handle %></a></strong> (<%= likes %> likes)  
           </li></p>
         <% end %>
+        </ol>
       <% end %>
   </body>
 </html>

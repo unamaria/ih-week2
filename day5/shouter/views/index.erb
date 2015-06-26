@@ -27,10 +27,10 @@
       <p>Not a shouter? <a href="/signup">Sign up!</a></p>
     <% end %>
     <h2>People are shouting</h2>
+      <% if @shouts.any? %>
       <p><a href="/best">Check the best shouts</a></p>
       <p><a href="/top_handles">Most like shouters</a></p>
       <ul>
-      <% if @shouts.any? %>
         <% @shouts.each do |shout| %>
         <p><li>
             <% user_id = shout.user_id %>

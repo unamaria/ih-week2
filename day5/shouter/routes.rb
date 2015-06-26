@@ -11,7 +11,7 @@ enable :sessions
 get ('/') do 
   @shouts = Shout.all
   @users = User.all
-  @current_user = session[:handle]
+  @current_user = User.find(session[:id]).handle if session[:id]
   erb :index
 end
 
@@ -21,13 +21,14 @@ end
 
 post ('/signup') do
   new_user = User.create name: params[:name], handle: params[:handle], password: params[:password]
-  session[:handle] = new_user.handle
+  # session[:handle] = new_user.handle
+  session[:id] = new_user.id
   redirect('/')
 end
 
 post ('/login') do
-  session[:handle] = params[:handle]
-  session[:password] = params[:password]
+  session[:id] = (User.find_by_handle params[:handle]).id
+  # session[:password] = params[:password]
   redirect('/')
 end
 
@@ -37,8 +38,8 @@ post ('/logout') do
 end
 
 post ('/shout/new') do
-  id = (User.find_by handle: session[:handle]).id
-  Shout.create message: params[:message], likes: 0, created_at: DateTime.now, user_id: id
+  # id = (User.find_by handle: session[:handle]).id
+  Shout.create message: params[:message], likes: 0, created_at: DateTime.now, user_id: session[:id]
   redirect ('/')
 end
 
@@ -51,14 +52,14 @@ end
 
 get ('/best') do
   @users = User.all
-  @current_user = session[:handle]
+  @current_user = User.find(session[:id]).handle if session[:id]
   @best_shouts = Shout.all.sort_by { |shout| shout.likes }.reverse
   erb :best
 end
 
 get ('/shouts/:handle') do |handle|
   @users = User.all
-  @current_user = session[:handle]
+  @current_user = User.find(session[:id]).handle if session[:id]
   @handle = handle
   id = (User.find_by_handle handle).id
   @shouts_by_handle = Shout.where(user_id: id)
@@ -75,7 +76,3 @@ get ('/top_handles') do
   @users_likes = @users_likes.sort_by { |handle, likes| likes }.reverse
   erb :top_handles
 end
-
-
-
-

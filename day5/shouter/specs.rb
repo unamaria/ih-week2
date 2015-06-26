@@ -1,5 +1,4 @@
-require '/shouter.rb'
-
+require './shouter.rb'
 
 describe User do
   
