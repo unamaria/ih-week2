@@ -5,12 +5,27 @@
     <h1>
       SHOUTER
     </h1>
+    <% if @current_user %>
+    <h2>Hi, <%= @current_user %>!</h2>
+    <form action="/logout" method="post">
+      <input type="submit" name="logout" value="Log out"/>
+    </form>
     <h2>SHOUT!</h2>
       <form action="/shout/new" method="post">
-      <p><label>Handle </p></label><input name="handle"/>
-      <p><label>Message (Max 200 characters)</label></p><textarea name="message" rows="10" cols="50"></textarea>
-      <p><input type="submit" value="Shout!"/></p>
-    </form>
+        <p><label>Handle </p></label><input name="handle"/>
+        <p><label>Message (Max 200 characters)</label></p><textarea name="message" rows="10" cols="50"></textarea>
+        <p><input type="submit" value="Shout!"/></p>
+      </form>
+    <% else %>
+      <h2>Log in</h2>
+      <form action="/login" method="post">
+        <p><label>Handle</label></p>
+        <input name="handle"/>
+        <p><label>Password</label></p>
+        <input name="password" />
+        <p><input type="submit" value="Log in"/></p>
+      </form>
+    <% end %>
     <h2>People are shouting</h2>
       <ul>
       <% if @shouts.any? %>
