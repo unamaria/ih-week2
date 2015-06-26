@@ -12,7 +12,6 @@
     </form>
     <h2>SHOUT!</h2>
       <form action="/shout/new" method="post">
-        <p><label>Handle </p></label><input name="handle"/>
         <p><label>Message (Max 200 characters)</label></p><textarea name="message" rows="10" cols="50"></textarea>
         <p><input type="submit" value="Shout!"/></p>
       </form>
@@ -31,9 +30,11 @@
       <% if @shouts.any? %>
         <% @shouts.each do |shout| %>
         <p><li>
-            <p><%= shout.message %></p>
-               <% user_id = shout.user_id %>
-            <p><%= @users.find(user_id).handle %></p>
+            <% user_id = shout.user_id %>
+            <p>
+              "<%= shout.message %>" 
+              <strong>@<%= @users.find(user_id).handle %></strong>
+            </p>
         </li></p>
         <% end %>
       </ul>

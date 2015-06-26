@@ -27,7 +27,7 @@ post ('/logout') do
 end
 
 post ('/shout/new') do
-  id = User.where("handle == '#{params[:handle]}'").first.id
+  id = (User.find_by handle: session[:handle]).id
   Shout.create message: params[:message], likes: 0, created_at: DateTime.now, user_id: id
   redirect ('/')
 end
