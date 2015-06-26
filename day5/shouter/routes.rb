@@ -15,6 +15,16 @@ get ('/') do
   erb :index
 end
 
+get ('/signup') do
+  erb :signup
+end
+
+post ('/signup') do
+  new_user = User.create name: params[:name], handle: params[:handle], password: params[:password]
+  session[:handle] = new_user.handle
+  redirect('/')
+end
+
 post ('/login') do
   session[:handle] = params[:handle]
   session[:password] = params[:password]
@@ -55,13 +65,15 @@ get ('/shouts/:handle') do |handle|
   erb :shouts_by_handle
 end
 
-get ('/signup') do
-  erb :signup
-end
-
-post ('/signup') do
-  User.create name: params[:name], handle: params[:handle], password: params[:password]
-  redirect('/')
+get ('/top_handles') do
+  @users_likes = {}
+  User.all.each do |user|
+    user_shouts = Shout.where(user_id: user.id)
+    total_likes = user_shouts.inject(0) { |total_likes, shout| total_likes += shout.likes }
+    @users_likes[user.handle] = total_likes
+  end
+  @users_likes = @users_likes.sort_by { |handle, likes| likes }.reverse
+  erb :top_handles
 end
 
 

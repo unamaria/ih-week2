@@ -11,6 +11,13 @@ class User < ActiveRecord::Base
   validates :handle, uniqueness: true
   validates :password, uniqueness: true, length: { is: 8 }
   has_many :shouts
+
+  # def total_likes
+  #   # user = User.find_by handle: session[:handle]
+  #   # own_shouts = Shout.where(user_id == user.id)
+  #   # own_shouts.reduce { |total_likes, shout| total_likes + shout.likes }
+  #   shouts.reduce { |total_likes, shout| total_likes + shout.likes }
+  # end
 end
 
 class Shout < ActiveRecord::Base
