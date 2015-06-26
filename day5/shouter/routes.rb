@@ -21,15 +21,21 @@ end
 
 post ('/signup') do
   new_user = User.create name: params[:name], handle: params[:handle], password: params[:password]
-  # session[:handle] = new_user.handle
   session[:id] = new_user.id
   redirect('/')
 end
 
 post ('/login') do
-  session[:id] = (User.find_by_handle params[:handle]).id
-  # session[:password] = params[:password]
-  redirect('/')
+  User.all.each do |user|
+    if params[:handle] == user.handle 
+      session[:id] = User.find_by_handle params[:handle]
+      if User.find(session[:id]).password == params[:password]
+        redirect('/')
+      end
+    else
+      redirect('/')
+    end
+  end  
 end
 
 post ('/logout') do
@@ -42,8 +48,6 @@ post ('/shout/new') do
   shout = Shout.new message: params[:message], likes: 0, created_at: DateTime.now
   shout.user = user
   shout.save
-
-  # Shout.create message: params[:message], likes: 0, created_at: DateTime.now, user_id: session[:id]
   redirect ('/')
 end
 
