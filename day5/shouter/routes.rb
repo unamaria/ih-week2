@@ -26,20 +26,16 @@ post ('/signup') do
 end
 
 post ('/login') do
-  User.all.each do |user|
-    if params[:handle] == user.handle 
-      session[:id] = User.find_by_handle params[:handle]
-      if User.find(session[:id]).password == params[:password]
-        redirect('/')
-      end
-    else
-      redirect('/')
-    end
-  end  
+  user = User.find_by_handle(params[:handle])
+  redirect('/') if user.nil?
+  if user.password == params[:password]
+    session[:id] = user.id
+  end
+  redirect('/') 
 end
 
 post ('/logout') do
-  session.clear
+  session.delete(:id)
   redirect('/')
 end
 
