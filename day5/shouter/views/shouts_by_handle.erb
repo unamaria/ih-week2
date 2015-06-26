@@ -24,8 +24,8 @@
     <% end %>
     <h2><%= @handle %> shouts</h2>
       <a href="/">Back to main page</a>
-      <ul>
       <% if @shouts_by_handle.any? %>
+      <ul>
         <% @shouts_by_handle.each do |shout| %>
         <p><li>
             <% user_id = shout.user_id %>

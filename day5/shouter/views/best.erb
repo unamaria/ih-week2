@@ -24,8 +24,8 @@
     <% end %>
     <h2>Best shouts</h2>
       <a href="/">Back to main page</a>
-      <ul>
       <% if @best_shouts.any? %>
+      <ul>
         <% @best_shouts.each do |shout| %>
         <p><li>
             <% user_id = shout.user_id %>

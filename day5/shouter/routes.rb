@@ -38,8 +38,12 @@ post ('/logout') do
 end
 
 post ('/shout/new') do
-  # id = (User.find_by handle: session[:handle]).id
-  Shout.create message: params[:message], likes: 0, created_at: DateTime.now, user_id: session[:id]
+  user = User.find(session[:id])
+  shout = Shout.new message: params[:message], likes: 0, created_at: DateTime.now
+  shout.user = user
+  shout.save
+
+  # Shout.create message: params[:message], likes: 0, created_at: DateTime.now, user_id: session[:id]
   redirect ('/')
 end
 
@@ -53,16 +57,14 @@ end
 get ('/best') do
   @users = User.all
   @current_user = User.find(session[:id]).handle if session[:id]
-  @best_shouts = Shout.all.sort_by { |shout| shout.likes }.reverse
+  @best_shouts = Shout.order("likes DESC")
   erb :best
 end
 
 get ('/shouts/:handle') do |handle|
   @users = User.all
   @current_user = User.find(session[:id]).handle if session[:id]
-  @handle = handle
-  id = (User.find_by_handle handle).id
-  @shouts_by_handle = Shout.where(user_id: id)
+  @shouts_by_handle = (User.find_by_handle handle).shouts
   erb :shouts_by_handle
 end
 
