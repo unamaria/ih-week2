@@ -45,3 +45,14 @@ get ('/best') do
   @best_shouts = Shout.all.sort_by { |shout| shout.likes }.reverse
   erb :best
 end
+
+get ('/:handle') do |handle|
+  @users = User.all
+  @current_user = session[:handle]
+  @handle = handle
+  id = (User.find_by handle: handle).id
+  @shouts_by_handle = Shout.where(user_id: id)
+  erb :shouts_by_handle
+end
+
+
